@@ -1,0 +1,306 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Pattern based fact extraction library
+\begin_inset Newline newline
+\end_inset
+
+Manual
+\end_layout
+
+\begin_layout Author
+Timo Petmanson
+\end_layout
+
+\begin_layout Section*
+Introduction
+\end_layout
+
+\begin_layout Standard
+Pattern based fact extraction library (PFE) is an open-source project created
+ by the grant of National Programme For Estonian Language Technology 
+\emph on
+(Eesti keeletehnoloogia (2011-2017)
+\emph default
+ EKT).
+ The project concentrates on specific tasks of machine learning and data
+ mining to help ease tasks such as text classification, named entity recognition
+ and clustering.
+ The project is mainly built as a library to be used in other programs and
+ scripts, but also contains command line programs for doing basic tasks.
+\end_layout
+
+\begin_layout Paragraph*
+Project description in EKT project pages: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.keeletehnoloogia.ee/ekt-projektid/mallipohine-faktituletus-tekstikorpustest"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+Project repository in bitbucket:
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+add link
+\end_layout
+
+\begin_layout Section
+Installation
+\end_layout
+
+\begin_layout Standard
+To install the library, the first step is to either download the binary
+ package, but recommended way is to build the code from source for best
+ compatibility.
+\end_layout
+
+\begin_layout Subsection
+C++ library
+\end_layout
+
+\begin_layout Standard
+The C++ library contains most computation intensive operations of the PFE
+ library.
+ It also provides basic functionality for working with corpora.
+ The library can be easily used and linked with most C++ programs.
+\end_layout
+
+\begin_layout Paragraph*
+Dependencies
+\end_layout
+
+\begin_layout Standard
+To build the C++ library, you must install and configure following libraries
+ on your system.
+\end_layout
+
+\begin_layout Itemize
+Scons - Build system similar used to coordinate compilation.
+\end_layout
+
+\begin_layout Itemize
+A C++11 compatible compiler like GCC v4.6.
+\end_layout
+
+\begin_layout Itemize
+Boost - collection of libraries working in tandem with STL for additional
+ functionality.
+\end_layout
+
+\begin_layout Paragraph*
+Optional dependencies:
+\end_layout
+
+\begin_layout Standard
+C++ library is most useful, when combined with existing functionality already
+ present in higher-level programming languages.
+ This way the C++ component can do do the heavy lifting of PFE tasks, while
+ other functionality such as visualisation is provided by other environments.
+\end_layout
+
+\begin_layout Itemize
+SWIG - Wrapper generator.
+ Required for creating Python, R and possibly other language modules out
+ of C++ code.
+\end_layout
+
+\begin_layout Subsubsection
+Binary packages.
+\end_layout
+
+\begin_layout Standard
+We also provide binary packages for some architectures and systems, but
+ they support only certain systems and may not be as up-to-date as the source
+ distribution.
+ Go to link for downloads.
+\end_layout
+
+\begin_layout Subsection
+Python extensions
+\end_layout
+
+\begin_layout Standard
+Although the C++ component can be wrapped using SWIG in virtually any language,
+ we have implemented additional functionality of the library depending on
+ the Python programming language and modules.
+\end_layout
+
+\begin_layout Paragraph*
+Required:
+\end_layout
+
+\begin_layout Standard
+Python extensions have various number of dependencies depending on what
+ you want to achieve, but for basic functionality the following are required:
+\end_layout
+
+\begin_layout Itemize
+pfe - C++ component of the library.
+\end_layout
+
+\begin_layout Itemize
+numpy - Library implementing many useful numerical functions in Python.
+\end_layout
+
+\begin_layout Itemize
+scipy - Library for scientific calculations.
+\end_layout
+
+\begin_layout Itemize
+nltk - Natural language processing toolkit for Python.
+\end_layout
+
+\begin_layout Itemize
+pandas - Library mainly for working with DataFrame and Series objects that
+ resemble the workflow in R programming language.
+\end_layout
+
+\begin_layout Paragraph*
+Optional:
+\end_layout
+
+\begin_layout Standard
+Optional dependencies can be used to provide functionality that is specific
+ to certain languages or tasks.
+\end_layout
+
+\begin_layout Itemize
+t3mesta - morphological analyzer for Estonian language.
+ Required for intergrated analysis of plain text corpora.
+\end_layout
+
+\begin_layout Itemize
+scikit-learn - collection of machine learning algorithms for usage in Python
+ programs.
+\end_layout
+
+\begin_layout Itemize
+xlrd - Excel format reader/writer.
+\end_layout
+
+\begin_layout Itemize
+mlpy - Yet another machine learning library for Python.
+\end_layout
+
+\begin_layout Itemize
+matplotlib - Plotting library for Python.
+\end_layout
+
+\begin_layout Subsubsection
+Binary packages.
+\end_layout
+
+\begin_layout Standard
+We also provide pre-built binary packages for Python code, but they may
+ not be as up-to-date as the source distribution.
+ Go to link for additional information.
+\end_layout
+
+\begin_layout Section
+C++ Examples
+\end_layout
+
+\begin_layout Subsection
+Loading simple documents and corpora
+\end_layout
+
+\begin_layout Subsection
+Mining frequent rules from documents
+\end_layout
+
+\begin_layout Section
+Python examples
+\end_layout
+
+\begin_layout Subsection
+Loading simple documents and corpora
+\end_layout
+
+\begin_layout Subsection
+Mining frequent rules from documents
+\end_layout
+
+\begin_layout Subsection
+Clustering the contexts of named entities in Estonian
+\end_layout
+
+\begin_layout Subsection
+Training a named entity classifier for Estonian
+\end_layout
+
+\begin_layout Subsection
+Determining authorship for English, Spanish and Greek documents
+\end_layout
+
+\end_body
+\end_document

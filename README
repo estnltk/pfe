@@ -1,0 +1,24 @@
+Pattern based fact extraction library (PFE)
+-------------------------------------------
+ 
+1. Introduction
+ 
+PFE is a set of simple experimental techiques for natural language processing.
+Its main purpose is feature extraction for named entity recognition, clustering,
+fact extraction and so on. It is created mainly as an extra tool for processing
+Estonian, but really it is more-or-less language agnostic.
+
+2. Installation
+
+TOWRITE
+
+3. Documentation
+
+a) See docs folder.
+b) See Wiki
+c) See http://www.keeletehnoloogia.ee/ekt-projektid/mallipohine-faktituletus-tekstikorpustest
+
+4. License
+GNU GPLv3
+Code written by others may have different licensing terms.
+

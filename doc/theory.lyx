@@ -1,0 +1,406 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\DeclareMathOperator*{\featfunc}{f}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-std
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Pattern based fact extraction
+\end_layout
+
+\begin_layout Author
+Timo Petmanson
+\begin_inset Newline newline
+\end_inset
+
+Sven Laur
+\end_layout
+
+\begin_layout Section
+Natural languages
+\end_layout
+
+\begin_layout Standard
+Natural language words usually can be split up into several componenets
+ such as 
+\emph on
+part-of-speech
+\emph default
+ (POS) 
+\emph on
+tag
+\emph default
+, 
+\emph on
+lemma
+\emph default
+, 
+\emph on
+case
+\emph default
+, 
+\emph on
+mode
+\emph default
+ etc, depending on the particular language used.
+ For example, English word 
+\begin_inset Quotes eld
+\end_inset
+
+cat
+\begin_inset Quotes erd
+\end_inset
+
+ has POS tag attribute with value 
+\emph on
+noun
+\emph default
+.
+ 
+\end_layout
+
+\begin_layout Paragraph*
+Local features.
+\end_layout
+
+\begin_layout Standard
+Attribute-value pairs that can be extracted directly from the word using
+ its surrounding context with simple techniques or more complicated morphologica
+l analysis are called 
+\emph on
+local features
+\emph default
+.
+ In addition to POS tag, lemma, case, attributes such as weither the word
+ starts with an uppercase letter, wether all letters are uppercase, does
+ the word contain digits, does the word belong to any dictionary or individual
+ syllables, suffixes of the word etc.
+\end_layout
+
+\begin_layout Paragraph*
+Global features.
+\end_layout
+
+\begin_layout Standard
+Another set of attribute-value pairs are called 
+\emph on
+global features
+\emph default
+.
+ Additionally, such features can be global document-wise, corpus-wise or
+ both.
+ For example, most frequent POS-tag of an Enlish word 
+\begin_inset Quotes eld
+\end_inset
+
+play
+\begin_inset Quotes erd
+\end_inset
+
+ in a document could be used as a global feature.
+ If one document talks about 
+\begin_inset Quotes eld
+\end_inset
+
+a play of Shakespeare
+\begin_inset Quotes erd
+\end_inset
+
+ and another about 
+\begin_inset Quotes eld
+\end_inset
+
+to play football
+\begin_inset Quotes erd
+\end_inset
+
+, the global POS tags for these documents would respectively be 
+\emph on
+noun
+\emph default
+ and 
+\emph on
+verb
+\emph default
+, thus different and discriminating in the sense of using the word 
+\begin_inset Quotes eld
+\end_inset
+
+play
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph*
+External features.
+\end_layout
+
+\begin_layout Standard
+Third set of attribute-value pairs are called 
+\emph on
+external features
+\emph default
+.
+ For example, does a word or phrase containing the word belong to a gazeteer,
+ is the phrase a known location, organization, facility or a name of a person.
+ Other possible external attributes might be the hyperonym or synonyms of
+ the word, which can be extracted from Wordnet database.
+ Anything that cannot be algorithmically determined from the text and requires
+ knowing cultural and social background the language is used requires some
+ kind of external information.
+\end_layout
+
+\begin_layout Subsection
+Mathematical representation
+\end_layout
+
+\begin_layout Paragraph*
+Word-attribute matrix.
+\end_layout
+
+\begin_layout Standard
+Easiest way to respresent the text and its composition into features is
+ to use a 
+\begin_inset Formula $n\times m$
+\end_inset
+
+ matrix 
+\begin_inset Formula $\mathtt{M}$
+\end_inset
+
+, where 
+\begin_inset Formula $n$
+\end_inset
+
+ is the number of words and 
+\begin_inset Formula $m$
+\end_inset
+
+ is the number of attributes.
+ For example, if we only are interested in local features such as the lemma,
+ POS tag and wether the word is uppercase, we might describe a sentence
+ 
+\begin_inset Quotes eld
+\end_inset
+
+A cat in a hat.
+\begin_inset Quotes erd
+\end_inset
+
+ with matrix 
+\begin_inset Formula 
+\[
+\mathtt{M}=\left(\begin{array}{ccc}
+a & DT & true\\
+cat & NN & false\\
+in & IN & false\\
+a & DT & false\\
+hat & NN & false
+\end{array}\right)\quad.
+\]
+
+\end_inset
+
+Given three possible attributes 
+\begin_inset Formula $lemma$
+\end_inset
+
+, 
+\begin_inset Formula $POS$
+\end_inset
+
+ and 
+\begin_inset Formula $uppercase$
+\end_inset
+
+, the word 
+\begin_inset Quotes eld
+\end_inset
+
+cat
+\begin_inset Quotes erd
+\end_inset
+
+ obtains features 
+\begin_inset Formula $lemma=cat$
+\end_inset
+
+, 
+\begin_inset Formula $POS=NN$
+\end_inset
+
+ and 
+\begin_inset Formula $uppercase=false$
+\end_inset
+
+.
+ Note that the columns of the features represent attributes and each cell
+ defines a particular value of that attribute for the word represented by
+ a particular row.
+\end_layout
+
+\begin_layout Standard
+However, such respresentation cannot be used to describe more than a single
+ value for a single attribute.
+ For example, a word may have several synonyms, which we might like to include,
+ but cannot as we can write only a single value per attribute for a word.
+ Also, such matrix cannot be easily used in various data mining algorithms
+ and packages.
+\end_layout
+
+\begin_layout Paragraph*
+Word-feature matrix.
+\end_layout
+
+\begin_layout Standard
+Let us define a feature function 
+\begin_inset Formula $\featfunc$
+\end_inset
+
+, which maps a given feature into a boolean vector, which determines the
+ words having the feature.
+ For example, consider the feature 
+\begin_inset Formula $lemma=a$
+\end_inset
+
+.
+ Given the sentence 
+\begin_inset Quotes eld
+\end_inset
+
+A cat in a hat.
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Formula 
+\[
+\featfunc(lemma=a)=(true,false,false,true,false)\,,
+\]
+
+\end_inset
+
+e.g the first and fourth words have feature 
+\begin_inset Formula $lemma=a$
+\end_inset
+
+.
+ Similarly, feature 
+\begin_inset Formula $POS=NN$
+\end_inset
+
+ would yield vector 
+\begin_inset Formula 
+\[
+\featfunc(POS=NN)=(false,true,false,false,true)\,,
+\]
+
+\end_inset
+
+because the POS tag is DT for the second and fifth word.
+ Given the number of words 
+\begin_inset Formula $n$
+\end_inset
+
+ and a list of features 
+\begin_inset Formula $F=(f_{1},f_{2},\ldots,f_{m})$
+\end_inset
+
+, we can build the word-feature matrix as
+\begin_inset Formula 
+\[
+M=\left(\begin{array}{ccccc}
+\featfunc(f_{1})_{1} & \featfunc(f_{2})_{1} & \cdots & \cdots & \featfunc(f_{m})_{1}\\
+\featfunc(f_{1})_{2} & \featfunc(f_{2})_{2} & \cdots & \cdots & \featfunc(f_{m})_{2}\\
+\vdots & \vdots & \ddots &  & \vdots\\
+\vdots & \vdots &  & \ddots & \vdots\\
+\featfunc(f_{1})_{n} & \featfunc(f_{2})_{n} & \cdots & \cdots & \featfunc(f_{m})_{n}
+\end{array}\right)\quad.
+\]
+
+\end_inset
+
+This type of matrix can easily used to describe several synonyms of a word,
+ which was impossible with word-attribute matrix.
+ We just need to define separate feature for each possible synonym like
+ 
+\begin_inset Formula $has\_synonym=something$
+\end_inset
+
+, 
+\begin_inset Formula $has\_synonym=something\_else$
+\end_inset
+
+.
+\end_layout
+
+\end_body
+\end_document
