@@ -1,6 +1,7 @@
 Pattern based fact extraction library (PFE)
 -------------------------------------------
- 
+Copyright (C) by University of Tartu
+
 1. Introduction
  
 PFE is a set of simple experimental techiques for natural language processing.
